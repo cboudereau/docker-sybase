@@ -7,7 +7,7 @@ jobs:
     name: Run test
     runs-on: ubuntu-latest
     env:
-      COMPOSE_FILE: .ci/docker-compose.yml
+      COMPOSE_FILE: .ci/compose.yml
 
     steps:
     - name: Checkout code
