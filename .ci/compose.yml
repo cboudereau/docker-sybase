@@ -1,6 +1,6 @@
 services:
   database:
-    build: .
+    build: ../../
     environment:
       - DATABASE=TESTDB
       - SA_PASSWORD=Sybase1234
