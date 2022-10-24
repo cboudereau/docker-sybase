@@ -13,12 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build docker images
-      run: docker compose up
-
     - name: Build images
       run: docker compose build
     
+    - name: Run test
+      run: docker compose run test
+
     - name: Run database create assertion
       run: docker compose logs | grep "Database 'TESTDB' is now online"
     

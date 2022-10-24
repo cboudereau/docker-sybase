@@ -17,7 +17,8 @@ RUN /tmp/ASE/setup.bin -DAGREE_TO_SAP_LICENSE=true -i silent -f /tmp/ASE/sybase_
 COPY ./srvbuild.adaptive_server.rs /tmp/ASE/srvbuild.adaptive_server.rs
 RUN . /opt/sap/SYBASE.sh && /opt/sap/ASE-16_0/bin/srvbuildres -r /tmp/ASE/srvbuild.adaptive_server.rs \
  && rm -rf /tmp/ASE \
- && sed -i -e 's/enable console logging = DEFAULT/enable console logging = 1/g' /opt/sap/ASE-16_0/SYBASE.cfg
+ && sed -i -e 's/enable console logging = DEFAULT/enable console logging = 1/g' /opt/sap/ASE-16_0/SYBASE.cfg \
+ && sed -i -e 's/localhost/0.0.0.0/g' /opt/sap/interfaces
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 
