@@ -6,3 +6,10 @@ services:
       - SA_PASSWORD=Sybase1234
     volumes:
       - ./init/:/docker-entrypoint-initdb.d/
+
+  test:
+    image: alpine:3.16
+    command: echo test done
+    depends_on:
+      - database
+    

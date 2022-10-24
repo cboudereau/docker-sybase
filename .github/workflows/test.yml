@@ -16,5 +16,23 @@ jobs:
     - name: Build docker images
       run: docker compose up
 
-    - name: Run tests
-      run: docker compose logs
+    - name: Build images
+      run: docker compose build
+    
+    - name: Run database create assertion
+      run: docker compose logs | grep "Database 'TESTDB' is now online"
+    
+    - name: Run database 1-table.sql init file assertion
+      run: docker compose logs | grep "running /docker-entrypoint-initdb.d/1-table.sql"
+
+    - name: Run database 2-data.sql.gz init file assertion
+      run: docker compose logs | grep "running /docker-entrypoint-initdb.d/2-data.sql.gz"
+    
+    - name: Run database should_be_ignored.txt ignored file assertion
+      run: docker compose logs | grep "ignoring /docker-entrypoint-initdb.d/should_be_ignored.txt"
+     
+    - name: Run Select assertions
+      run: | 
+        docker compose logs | grep "IDROW                 TEST_FIELD1" && \
+        docker compose logs | grep "--------------------- -----------" && \
+        docker compose logs | grep "                    1 1"
