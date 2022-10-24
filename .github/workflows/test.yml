@@ -18,7 +18,10 @@ jobs:
     
     - name: Run test
       run: docker compose run test
-
+    
+    - name: Run database create assertion
+      run: docker compose logs
+    
     - name: Run database create assertion
       run: docker compose logs | grep "Database 'TESTDB' is now online"
     
