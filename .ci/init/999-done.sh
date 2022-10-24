@@ -1,0 +1,1 @@
+echo "ok" > /log/done

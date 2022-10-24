@@ -6,10 +6,17 @@ services:
       - SA_PASSWORD=Sybase1234
     volumes:
       - ./init/:/docker-entrypoint-initdb.d/
+      - logs:/log/
 
   test:
     image: alpine:3.16
-    command: sleep 60 && echo test done
+    command: /wait-for-file.sh /log/done && echo test done
+    volumes:
+      - ./wait-for-file.sh:/wait-for-file.sh
+      - logs:/log/:ro
     depends_on:
       - database
+
+volumes:
+  logs:
     
