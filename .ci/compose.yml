@@ -1,0 +1,8 @@
+services:
+  database:
+    build: .
+    environment:
+      - DATABASE=TESTDB
+      - SA_PASSWORD=Sybase1234
+    volumes:
+      - ./init/:/docker-entrypoint-initdb.d/
