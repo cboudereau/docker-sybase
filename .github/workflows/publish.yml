@@ -1,5 +1,9 @@
 name: publish
 
+on:
+  push:
+    branches: 
+      - '*'
 # on:
 #   release:
 #     types: [published]
