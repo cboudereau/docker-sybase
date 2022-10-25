@@ -1,1 +1,1 @@
-echo "test done" > /log/done
+echo "init done" > /log/done
