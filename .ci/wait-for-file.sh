@@ -1,4 +1,6 @@
 #!/bin/sh
+set -eu
+
 f=$1
 while  [[ ! -f "$f" ]]
 do
