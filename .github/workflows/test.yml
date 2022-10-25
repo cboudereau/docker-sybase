@@ -32,7 +32,7 @@ jobs:
       run: docker compose logs | grep "running /docker-entrypoint-initdb.d/2-data.sql.gz"
     
     - name: Run database should_be_ignored.txt ignored file assertion
-      run: docker compose logs | grep "ignoring /docker-entrypoint-initdb.d/should_be_ignored.txt"
+      run: docker compose logs | grep "ignoring /docker-entrypoint-initdb.d/4-should_be_ignored.txt"
      
     - name: Run Select assertions
       run: | 
