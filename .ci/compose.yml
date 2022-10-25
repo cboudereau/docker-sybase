@@ -1,0 +1,25 @@
+services:
+  database:
+    build: ../
+    environment:
+      - DATABASE=TESTDB
+      - SA_PASSWORD=Sybase1234
+    entrypoint: /entrypoint.sh
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh:ro
+      - ./init/:/docker-entrypoint-initdb.d/:ro
+      - logs:/log/
+
+  test:
+    image: alpine:3.16
+    working_dir: /scripts 
+    command: ./test.sh
+    volumes:
+      - ./test:/scripts:ro
+      - logs:/log/:ro
+    depends_on:
+      - database
+
+volumes:
+  logs:
+    

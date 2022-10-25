@@ -1,0 +1,20 @@
+name: Test
+on:
+  pull_request:
+
+jobs:
+  test:
+    name: Run test
+    runs-on: ubuntu-latest
+    env:
+      COMPOSE_FILE: .ci/compose.yml
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build images
+      run: docker compose build
+    
+    - name: Run test
+      run: docker compose run test
