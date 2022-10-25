@@ -12,10 +12,10 @@ services:
 
   test:
     image: alpine:3.16
-    command: /test.sh
+    working_dir: /scripts 
+    command: ./test.sh
     volumes:
-      - ./test.sh:/test.sh:ro
-      - ./wait-for-file.sh:/wait-for-file.sh:ro
+      - ./test:/scripts:ro
       - logs:/log/:ro
     depends_on:
       - database
