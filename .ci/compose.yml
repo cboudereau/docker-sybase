@@ -5,14 +5,14 @@ services:
       - DATABASE=TESTDB
       - SA_PASSWORD=Sybase1234
     volumes:
-      - ./init/:/docker-entrypoint-initdb.d/
+      - ./init/:/docker-entrypoint-initdb.d/:ro
       - logs:/log/
 
   test:
     image: alpine:3.16
     command: /wait-for-file.sh /log/done && echo test done
     volumes:
-      - ./wait-for-file.sh:/wait-for-file.sh
+      - ./wait-for-file.sh:/wait-for-file.sh:ro
       - logs:/log/:ro
     depends_on:
       - database
