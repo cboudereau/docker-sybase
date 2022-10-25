@@ -1,1 +1,1 @@
-echo "ok" > /log/done
+echo "test done" > /log/done

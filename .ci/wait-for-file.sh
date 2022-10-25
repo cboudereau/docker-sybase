@@ -1,7 +1,8 @@
 #!/bin/sh
 f=$1
-if  [[ ! -f "$f" ]]; then
+while  [[ ! -f "$f" ]]
+do
+    echo "waiting $f"
     sleep 1
-else
-    cat $f
-fi
+done
+cat $f
