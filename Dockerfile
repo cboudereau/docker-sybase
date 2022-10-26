@@ -28,6 +28,8 @@ COPY --from=setup /opt/sap /opt/sap
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 
+HEALTHCHECK --interval=5s --timeout=30s --retries=3 CMD netstat -ltn | grep 5000
+
 EXPOSE 5000
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
