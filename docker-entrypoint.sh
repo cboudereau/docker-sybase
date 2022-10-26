@@ -28,7 +28,7 @@ run_init_files () {
 echo "starting sybase..."
 ${SYBASE}/${SYBASE_ASE}/install/RUN_SYBASE &
 
-while ! netstat -ltn | grep -c 5000; do   
+while ! netstat -ltn | grep 5000; do   
   sleep 0.1
 done
 echo "sybase started"

@@ -9,6 +9,8 @@ services:
       - ./entrypoint.sh:/entrypoint.sh:ro
       - ./init/:/docker-entrypoint-initdb.d/:ro
       - logs:/log/
+    # healthcheck:
+    #   disable: true
 
   test:
     image: alpine:3.16
