@@ -16,5 +16,8 @@ jobs:
     - name: Build images
       run: docker compose build
     
+    - name: Image size
+      run: docker compose images
+    
     - name: Run test
       run: docker compose run test
