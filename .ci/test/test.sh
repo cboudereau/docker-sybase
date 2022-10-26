@@ -20,5 +20,3 @@ echo Test database should_be_ignored.txt ignored file assertion && grep -e "igno
 echo Test Select assertions && grep -e "IDROW                 TEST_FIELD1" /log/database.log && \
                                grep -e "--------------------- -----------" /log/database.log && \
                                grep -e "                    1 1" /log/database.log;
-
-wait
