@@ -20,6 +20,7 @@ see the [/docker-entrypoint-initdb.d/ folder example](https://github.com/cbouder
 services:
   database:
     image: superbeeeeeee/docker-sybase
+    pull_policy: always
     environment:
       - DATABASE=hello
       - SA_PASSWORD=Sybase1234
