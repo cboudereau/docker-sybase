@@ -16,19 +16,21 @@ COPY --from=builder /tmp/ASE /tmp/ASE
 RUN /tmp/ASE/setup.bin -DAGREE_TO_SAP_LICENSE=true -i silent -f /tmp/ASE/sybase_response.txt \
  && rm -rf /tmp/ASE
 
-COPY ./srvbuild.adaptive_server.rs /tmp/ASE/srvbuild.adaptive_server.rs
-RUN . /opt/sap/SYBASE.sh && /opt/sap/ASE-16_0/bin/srvbuildres -r /tmp/ASE/srvbuild.adaptive_server.rs \
+COPY ./srvbuild1027.001-SYBASE.rs /tmp/ASE/srvbuild1027.001-SYBASE.rs
+COPY ./sqlloc1027.001-SYBASE.rs /tmp/ASE/sqlloc1027.001-SYBASE.rs
+RUN . /opt/sap/SYBASE.sh \ 
+ && /opt/sap/ASE-16_0/bin/srvbuildres -r /tmp/ASE/srvbuild1027.001-SYBASE.rs \
+ && /opt/sap/ASE-16_0/bin/sqllocres -r /tmp/ASE/sqlloc1027.001-SYBASE.rs \
  && rm -rf /tmp/ASE \
  && sed -i -e 's/enable console logging = DEFAULT/enable console logging = 1/g' /opt/sap/ASE-16_0/SYBASE.cfg \
  && sed -i -e 's/localhost/0.0.0.0/g' /opt/sap/interfaces
 
 FROM basedeps
 COPY --from=setup /opt/sap /opt/sap
-# COPY --from=setup /var/lib/rpm /var/lib/rpm
 
 COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY ./healthcheck.sh /usr/local/bin/healthcheck
 
 EXPOSE 5000
 
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+ENTRYPOINT docker-entrypoint.sh
