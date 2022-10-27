@@ -35,7 +35,9 @@ echo "sybase started"
 
 if  [[ ! -f "/.initialized" ]]; then
   echo -e sp_password 'Sybase123',\'${SA_PASSWORD}\' ,sa\\ngo | isql -Usa -PSybase123
-  echo -e "CREATE DATABASE ${DATABASE}\ngo" | ${ISQL} # Database '${DATABASE}' is now online.
+  if [[ -z "${DATABASE}" ]]; then
+    echo -e "CREATE DATABASE ${DATABASE}\ngo" | ${ISQL} # Database '${DATABASE}' is now online.
+  fi
   run_init_files /docker-entrypoint-initdb.d/*
   echo "ok" > /.initialized
 fi
