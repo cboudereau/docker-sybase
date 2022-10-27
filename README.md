@@ -27,6 +27,6 @@ services:
     volumes:
       - ./init/:/docker-entrypoint-initdb.d/
     healthcheck:
-      test: /healthcheck.sh
+      test: healthcheck
       interval: 5s
 ```
