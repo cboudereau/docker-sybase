@@ -27,8 +27,7 @@ COPY --from=setup /opt/sap /opt/sap
 # COPY --from=setup /var/lib/rpm /var/lib/rpm
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-
-HEALTHCHECK --interval=5s --timeout=30s --retries=3 CMD netstat -ltn | grep 5000
+COPY ./healthcheck.sh /healthcheck.sh
 
 EXPOSE 5000
 

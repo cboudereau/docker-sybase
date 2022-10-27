@@ -1,3 +1,4 @@
+version: '3.9'
 services:
   database:
     build: ../
@@ -9,8 +10,12 @@ services:
       - ./entrypoint.sh:/entrypoint.sh:ro
       - ./init/:/docker-entrypoint-initdb.d/:ro
       - logs:/log/
-    # healthcheck:
-    #   disable: true
+    healthcheck:
+      test: /healthcheck.sh
+      interval: 5s
+      timeout: 30s
+      retries: 5
+      start_period: 0s
 
   test:
     image: alpine:3.16

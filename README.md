@@ -16,7 +16,7 @@ docker run --rm -it --name sybase -e SA_PASSWORD=Sybase1234 -e DATABASE=hello -p
 
 ## Docker compose example
 see the [/docker-entrypoint-initdb.d/ folder example](https://github.com/cboudereau/docker-sybase/tree/main/.ci/init)
-```
+```yaml
 services:
   database:
     image: superbeeeeeee/docker-sybase
@@ -26,4 +26,7 @@ services:
       - SA_PASSWORD=Sybase1234
     volumes:
       - ./init/:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: /healthcheck.sh
+      interval: 5s
 ```
