@@ -9,7 +9,7 @@ Sybase docker image for local __dev only__.
 
 :warning: This image is not production ready
 
-## Run as docker image
+## Run as docker container
 ```bash
 docker run --rm -it --name sybase -e SA_PASSWORD=Sybase1234 -e DATABASE=hello -p 5000:5000 -v $(pwd)/init/:/docker-entrypoint-initdb.d/ superbeeeeeee/docker-sybase
 ```
