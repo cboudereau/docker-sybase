@@ -26,9 +26,9 @@ FROM basedeps
 COPY --from=setup /opt/sap /opt/sap
 # COPY --from=setup /var/lib/rpm /var/lib/rpm
 
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-COPY ./healthcheck.sh /healthcheck.sh
+COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY ./healthcheck.sh /usr/local/bin/healthcheck
 
 EXPOSE 5000
 
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+ENTRYPOINT [ "docker-entrypoint.sh" ]

@@ -4,13 +4,13 @@ services:
     environment:
       - DATABASE=TESTDB
       - SA_PASSWORD=Sybase1234
-    entrypoint: /entrypoint.sh
+    entrypoint: entrypoint.sh
     volumes:
-      - ./entrypoint.sh:/entrypoint.sh:ro
+      - ./entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
       - ./init/:/docker-entrypoint-initdb.d/:ro
       - logs:/log/
     healthcheck:
-      test: /healthcheck.sh
+      test: healthcheck
       interval: 5s
       timeout: 30s
       retries: 5
