@@ -16,6 +16,7 @@ COPY --from=builder /tmp/ASE /tmp/ASE
 RUN /tmp/ASE/setup.bin -DAGREE_TO_SAP_LICENSE=true -i silent -f /tmp/ASE/sybase_response.txt \
  && rm -rf /tmp/ASE
 
+FROM setup as install
 COPY ./srvbuild1027.001-SYBASE.rs /tmp/ASE/srvbuild1027.001-SYBASE.rs
 COPY ./sqlloc1027.001-SYBASE.rs /tmp/ASE/sqlloc1027.001-SYBASE.rs
 RUN . /opt/sap/SYBASE.sh \ 
@@ -26,7 +27,7 @@ RUN . /opt/sap/SYBASE.sh \
  && sed -i -e 's/localhost/0.0.0.0/g' /opt/sap/interfaces
 
 FROM basedeps
-COPY --from=setup /opt/sap /opt/sap
+COPY --from=install /opt/sap /opt/sap
 
 COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY ./healthcheck.sh /usr/local/bin/healthcheck
