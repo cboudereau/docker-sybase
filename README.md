@@ -30,3 +30,8 @@ services:
       test: healthcheck
       interval: 5s
 ```
+
+## isql demo
+```bash
+echo -e "select top 10 * from <YourTable>\ngo" | isql -Usa -P${SA_PASSWORD} -D${DATABASE}
+```
