@@ -1,0 +1,18 @@
+use TESTDB
+go
+CREATE TABLE dbo.TEST_TABLE  (
+    IDROW       	numeric(18,0) IDENTITY NOT NULL,
+    TEST_FIELD1   	char(4) NOT NULL,
+    )
+LOCK DATAROWS
+WITH exp_row_size = 0, reservepagegap = 0, identity_gap = 500, DML_LOGGING = FULL
+ON [default]
+GO
+CREATE NONCLUSTERED INDEX I1_TEST_TABLE
+    ON dbo.TEST_TABLE(TEST_FIELD1)
+    ON [default]
+GO
+CREATE UNIQUE NONCLUSTERED INDEX UI_TEST_TABLE
+    ON dbo.TEST_TABLE(IDROW)
+    ON [default]
+GO
