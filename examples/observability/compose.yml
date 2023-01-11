@@ -1,0 +1,32 @@
+services:
+  statsd:
+    image: statsd/statsd
+    ports: 
+     - 8125:8125/udp
+    volumes:
+      - ./init/statsd/console.js:/usr/src/app/config.js
+
+  database:
+    image: superbeeeeeee/docker-sybase
+    environment:
+      - DATABASE=TESTDB
+      - SA_PASSWORD=Sybase1234
+    volumes:
+      - ./init/database/:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: healthcheck
+      interval: 5s
+
+  client:
+    image: superbeeeeeee/docker-sybase
+    entrypoint: ["/schedule.sh", "/data.sql"]
+    environment:
+      - DATABASE=TESTDB
+      - SA_PASSWORD=Sybase1234
+      - SERVER=database
+    volumes:
+      - ./init/client/schedule.sh:/schedule.sh:ro
+      - ./init/client/data.sql:/data.sql:ro
+    depends_on:
+      - database
+      - statsd
