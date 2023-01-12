@@ -12,6 +12,7 @@ services:
 
   database:
     image: superbeeeeeee/docker-sybase
+    pull_policy: always
     environment:
       - DATABASE=TESTDB
       - SA_PASSWORD=Sybase1234
@@ -19,10 +20,12 @@ services:
       - ./database/:/docker-entrypoint-initdb.d/
     healthcheck:
       test: healthcheck
-      interval: 5s
+      interval: 10s
+      retries: 10
 
   client:
     image: superbeeeeeee/docker-sybase
+    pull_policy: always
     entrypoint: ["/schedule.sh", "/data.sql"]
     environment:
       - DATABASE=TESTDB
