@@ -1,0 +1,38 @@
+services:
+  prometheus:
+    image: prom/prometheus:v2.41.0
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - 9090:9090
+  
+  statsd:
+    image: prom/statsd-exporter
+    command: "--statsd.listen-udp=:8125 --web.listen-address=:9102 --log.level=debug"
+
+  database:
+    image: superbeeeeeee/docker-sybase
+    environment:
+      - DATABASE=TESTDB
+      - SA_PASSWORD=Sybase1234
+    volumes:
+      - ./database/:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: healthcheck
+      interval: 5s
+
+  client:
+    image: superbeeeeeee/docker-sybase
+    entrypoint: ["/schedule.sh", "/data.sql"]
+    environment:
+      - DATABASE=TESTDB
+      - SA_PASSWORD=Sybase1234
+      - SERVER=database
+    volumes:
+      - ./client/schedule.sh:/schedule.sh:ro
+      - ./client/data.sql:/data.sql:ro
+    depends_on:
+      database:
+        condition: service_healthy
+      statsd:
+        condition: service_started
