@@ -2,7 +2,7 @@ FROM centos:7 as base
 FROM base as builder
 
 ADD https://d1cuw2q49dpd0p.cloudfront.net/ASE16/Current/ASE_Suite.linuxamd64.tgz /tmp/ASE/ASE_Suite.linuxamd64.tgz
-RUN pushd /tmp/ASE && tar -xvzf /tmp/ASE_Suite.linuxamd64.tgz && rm -f ASE_Suite.linuxamd64.tgz && popd
+RUN pushd /tmp/ASE && tar -xvzf ASE_Suite.linuxamd64.tgz && rm -f ASE_Suite.linuxamd64.tgz && popd
 COPY ./sybase_response.txt /tmp/ASE
 
 FROM base as basedeps
