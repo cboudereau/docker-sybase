@@ -7,7 +7,7 @@ services:
       - 9090:9090
   
   statsd:
-    image: prom/statsd-exporter
+    image: prom/statsd-exporter:v0.23.0
     command: "--statsd.listen-udp=:8125 --web.listen-address=:9102 --log.level=debug"
 
   database:
