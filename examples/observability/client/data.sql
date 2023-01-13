@@ -22,7 +22,6 @@ select @t = DATEDIFF(MILLISECOND, @s, @e)
 declare @msg varchar(255)
 select @msg = "sybase.test_table.insert:" + convert(varchar, @t) + "|ms"
 exec sp_sendmsg "statsd", 8125, @msg
-
-select count(*) from dbo.TEST_TABLE
+select @msg as metric, count(*) as total from dbo.TEST_TABLE
 
 go
