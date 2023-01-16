@@ -11,8 +11,8 @@ srvbuild.network_port_list: 5000
 srvbuild.application_type: USE_DEFAULT
 srvbuild.server_page_size: USE_DEFAULT
 srvbuild.master_device_physical_name: /opt/sap/data/master.dat
-srvbuild.master_device_size: USE_DEFAULT
-srvbuild.master_database_size: USE_DEFAULT
+srvbuild.master_device_size: 150
+srvbuild.master_database_size: 100
 srvbuild.errorlog: USE_DEFAULT
 srvbuild.sybsystemprocs_device_physical_name: /opt/sap/data/sysprocs.dat
 srvbuild.sybsystemprocs_device_size: USE_DEFAULT
@@ -21,8 +21,8 @@ srvbuild.sybsystemdb_device_physical_name: /opt/sap/data/sybsysdb.dat
 srvbuild.sybsystemdb_device_size: USE_DEFAULT
 srvbuild.sybsystemdb_database_size: USE_DEFAULT
 srvbuild.tempdb_device_physical_name: /opt/sap/data/tempdbdev.dat
-srvbuild.tempdb_device_size: USE_DEFAULT
-srvbuild.tempdb_database_size: USE_DEFAULT
+srvbuild.tempdb_device_size: 250
+srvbuild.tempdb_database_size: 250
 #srvbuild.default_backup_server: SYBASE_BS
 #srvbuild.addl_cmdline_parameters: 
 srvbuild.shmem: /opt/sap/ASE-16_0
