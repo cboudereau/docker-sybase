@@ -24,6 +24,8 @@ RUN . /opt/sap/SYBASE.sh \
  && /opt/sap/ASE-16_0/bin/sqllocres -r /tmp/ASE/sqlloc1027.001-SYBASE.rs \
  && rm -rf /tmp/ASE \
  && sed -i -e 's/enable console logging = DEFAULT/enable console logging = 1/g' /opt/sap/ASE-16_0/SYBASE.cfg \
+ && sed -i -e 's/max memory = DEFAULT/max memory = 500000/g' /opt/sap/ASE-16_0/SYBASE.cfg \
+ && echo 'procedure cache size = 100000' >> /opt/sap/ASE-16_0/SYBASE.cfg \
  && sed -i -e 's/localhost/0.0.0.0/g' /opt/sap/interfaces
 
 FROM basedeps
