@@ -7,7 +7,9 @@
 
 Sybase docker image for local __dev only__.
 
-:warning: This image is not production ready
+:warning: This image is not production ready and should be used for dev only
+
+For a dev usage a licence should be used and mounted in the container.
 
 ## Run as docker container
 ```bash
