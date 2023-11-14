@@ -1,0 +1,14 @@
+services:
+  database:
+    image: superbeeeeeee/docker-sybase
+    pull_policy: always
+    environment:
+      - DATABASE=hello
+      - SA_PASSWORD=Sybase1234
+    volumes:
+      - ./init/:/docker-entrypoint-initdb.d/
+    ports:
+      - 5000:5000
+    healthcheck:
+      test: healthcheck
+      interval: 5s
