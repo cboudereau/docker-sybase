@@ -25,13 +25,13 @@ run_init_files () {
   done
 }
 
-echo "starting sybase..."
+echo "starting docker-sybase..."
 ${SYBASE}/${SYBASE_ASE}/install/RUN_SYBASE &
 
 while ! netstat -ltn | grep 5000; do   
   sleep 0.1
 done
-echo "sybase started"
+echo "docker-sybase started"
 
 if  [[ ! -f "/.initialized" ]]; then
   DATABASE=${DATABASE-}
