@@ -37,6 +37,49 @@ services:
 ```
 
 ## isql demo
+
+run the docker-compose example: [basic example](./examples/basic/)
+
+1️⃣ Run the demo
 ```bash
-. /opt/sap/SYBASE.sh && echo -e "select top 10 * from <YourTable>\ngo" | isql -Usa -P${SA_PASSWORD} -D${DATABASE}
+cd examples/basic/
+docker compose down --remove-orphans -v --rmi local && docker compose up
+```
+
+2️⃣ Run a basic query
+```bash
+. /opt/sap/SYBASE.sh && echo -e "select top 10 * from TEST_TABLE\ngo" | isql -Usa -P${SA_PASSWORD} -D${DATABASE}
+```
+
+3️⃣ Run isql
+```bash
+docker compose exec -it database sh
+. /opt/sap/SYBASE.sh
+isql -Usa
+```
+
+### show databases
+```sql
+sp_helpdb
+go
+```
+
+### describe database
+```sql
+sp_helpdb TESTDB
+go
+```
+
+### show tables
+```sql
+use TESTDB
+go
+sp_tables
+go
+```
+
+### describe table
+```sql
+sp_help TEST_TABLE
+go
 ```
