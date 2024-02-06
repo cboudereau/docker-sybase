@@ -4,7 +4,11 @@
 
 ## trade-off
 
-To measure latencies, sybase does not offer a true stopwatch nor timestamp but to measure latencies > 1s, this example does the job. In this example 2 UTC dates has been used (time of day not monotonic time though) to compute the time spent inserting values in a table with a precision of 1/300s (sybase restrictions).
+Reference: https://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.infocenter.dc36271.1570/html/blocks/X58954.htm
+
+To measure durations, sybase does not offer a true stopwatch nor timestamp with a high resolution and monotonic properties. 
+
+To measure durations > 1/300s, this example uses 2 UTC dates difference to compute the time spent inserting values in a table with a precision of 1/300s.
 
 ## run the demo
 ```bash
