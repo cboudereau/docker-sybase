@@ -6,14 +6,15 @@ RUN pushd /tmp/ASE && tar -xvzf ASE_Suite.linuxamd64.tgz && rm -f ASE_Suite.linu
 COPY ./sybase_response.txt /tmp/ASE
 
 FROM base as basedeps
-RUN yum update -y \
+RUN dnf install libnsl* -y \
+ && yum update -y \
  && yum install -y libaio net-tools nc \
  && yum clean all
 
 FROM basedeps as setup
 COPY --from=builder /tmp/ASE /tmp/ASE
 
-RUN /tmp/ASE/setup.bin -DAGREE_TO_SAP_LICENSE=true -i silent -f /tmp/ASE/sybase_response.txt \
+RUN /tmp/ASE/setup.bin -DAGREE_TO_SAP_LICENSE=true -i silent -f /tmp/ASE/sybase_response.txt || cat /opt/sap/log/ASE_Suite.log \
  && rm -rf /tmp/ASE
 
 FROM setup as install
