@@ -1,4 +1,4 @@
-FROM centos:7 as base
+FROM centos:8 as base
 FROM base as builder
 
 ADD https://d1cuw2q49dpd0p.cloudfront.net/ASE16/Current/ASE_Suite.linuxamd64.tgz /tmp/ASE/ASE_Suite.linuxamd64.tgz
