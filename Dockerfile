@@ -1,4 +1,4 @@
-FROM centos:7 as base
+FROM rockylinux:9 as base
 FROM base as builder
 
 ADD https://d1cuw2q49dpd0p.cloudfront.net/ASE16/Current/ASE_Suite.linuxamd64.tgz /tmp/ASE/ASE_Suite.linuxamd64.tgz
@@ -7,7 +7,7 @@ COPY ./sybase_response.txt /tmp/ASE
 
 FROM base as basedeps
 RUN yum update -y \
- && yum install -y libaio net-tools nc \
+ && yum install -y libaio net-tools nc libnsl.x86_64 \
  && yum clean all
 
 FROM basedeps as setup
