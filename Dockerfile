@@ -6,7 +6,10 @@ RUN pushd /tmp/ASE && tar -xvzf ASE_Suite.linuxamd64.tgz && rm -f ASE_Suite.linu
 COPY ./sybase_response.txt /tmp/ASE
 
 FROM base as basedeps
-RUN yum update -y \
+
+RUN dnf --disablerepo '*' --enablerepo extras swap centos-linux-repos centos-stream-repos -y \
+ && dnf distro-sync -y \
+ && yum update -y \
  && yum install -y libaio net-tools nc \
  && yum clean all
 
