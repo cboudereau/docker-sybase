@@ -40,7 +40,7 @@ services:
     environment:
       - DATABASE=TESTDB
       - SA_PASSWORD=Sybase1234
-      - SERVER=database
+      - SERVER=toxiproxy
     volumes:
       - ./client/schedule.sh:/schedule.sh:ro
       - ./client/data.sql:/data.sql:ro

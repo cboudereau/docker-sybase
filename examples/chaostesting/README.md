@@ -4,6 +4,9 @@ This setup uses toxiproxy as a middleware between client and database to simulat
 
 The client service uses toxiproxy service as a sybase database which integrates toxic issues and forward tcp packets to the database service (sybase server).
 
+![Architecture](./docker-compose.png)
+[Docker compose file](./compose.yml)
+
 Prometheus 
 [dashboard](http://localhost:9090/graph?g0.expr=rate(client%5B1m%5D)&g0.tab=0&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h&g1.expr=sybase_test_table_insert&g1.tab=0&g1.stacked=0&g1.show_exemplars=0&g1.range_input=1h) is used to analyze metrics from statsd:
 
