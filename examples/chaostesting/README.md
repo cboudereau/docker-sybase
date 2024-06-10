@@ -29,9 +29,11 @@ We can see that the that from the client point of view the rate is lower than be
 
 ```bash
 toxiproxy-cli create database --listen 0.0.0.0:5000 --upstream database:5000;
-toxiproxy-cli -h toxiproxy:8474 toxic add -t latency -a latency=2000 database;
-toxiproxy-cli -h toxiproxy:8474 toxic add -t bandwidth -a rate=1 database;
-toxiproxy-cli -h toxiproxy:8474 toxic add -t slicer -a average_size=1000 -a size_variation=900 -a delay=10000 database;
+toxiproxy-cli toxic add -t latency -a latency=2000 database;
+toxiproxy-cli toxic add -t bandwidth -a rate=1 database;
+toxiproxy-cli toxic add -t slicer -a average_size=1000 -a size_variation=900 -a delay=10000 database;
+
+toxiproxy-cli toxic remove -n latency_downstream database;
 ```
 
 ### Prometheus
