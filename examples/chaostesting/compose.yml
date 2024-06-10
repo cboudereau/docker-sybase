@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.41.0
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - 9090:9090
+    networks:
+      - bridge
+  
+  statsd:
+    image: prom/statsd-exporter:v0.23.0
+    command: "--statsd.listen-udp=:8125 --web.listen-address=:9102 --log.level=debug"
+    networks:
+      - bridge
+    depends_on:
+      - prometheus
+
+  database:
+    image: superbeeeeeee/docker-sybase
+    pull_policy: always
+    environment:
+      - DATABASE=TESTDB
+      - SA_PASSWORD=Sybase1234
+    volumes:
+      - ./database/:/docker-entrypoint-initdb.d/
+    networks:
+      - bridge
+    healthcheck:
+      test: healthcheck
+      interval: 10s
+      retries: 10
+
+  client:
+    image: superbeeeeeee/docker-sybase
+    pull_policy: always
+    entrypoint: ["/schedule.sh", "/data.sql"]
+    environment:
+      - DATABASE=TESTDB
+      - SA_PASSWORD=Sybase1234
+      - SERVER=toxiproxy
+    volumes:
+      - ./client/schedule.sh:/schedule.sh:ro
+      - ./client/data.sql:/data.sql:ro
+    networks:
+      - bridge
+    depends_on:
+      database:
+        condition: service_healthy
+      statsd:
+        condition: service_started
+      toxiproxy:
+        condition: service_started
+
+  toxiproxy:
+    image: shopify/toxiproxy
+    networks:
+      - bridge
+  toxiproxy-config:
+    image: shopify/toxiproxy
+    entrypoint: > 
+      sh -c "/go/bin/toxiproxy-cli -h toxiproxy:8474 create database --listen 0.0.0.0:5000 --upstream database:5000;
+      /go/bin/toxiproxy-cli -h toxiproxy:8474 toxic add -t latency -a latency=2000 database;
+      /go/bin/toxiproxy-cli -h toxiproxy:8474 toxic add -t bandwidth -a rate=1 database;
+      /go/bin/toxiproxy-cli -h toxiproxy:8474 toxic add -t slicer -a average_size=1000 -a size_variation=900 -a delay=10000 database;"
+    networks:
+      - bridge
+    depends_on:
+      - toxiproxy
+
+networks:
+ bridge:
