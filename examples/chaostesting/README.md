@@ -2,7 +2,7 @@
 
 This setup uses toxiproxy as a middleware between client and database to simulate latency, bandwidth and variation problems at TCP level.
 
-The client service uses toxiproxy service as a sybase database which integrates toxic issues and forward tcp packets to the database service (sybase server).
+The client service uses toxiproxy service as a sybase database which integrates toxic issues and forwards tcp packets to the database service (sybase server).
 
 ![Architecture](./docker-compose.png)
 [Docker compose file](./compose.yml)
@@ -26,6 +26,13 @@ We can see that the that from the client point of view the rate is lower than be
 ### Toxiproxy
 
 [Project Page](https://github.com/Shopify/toxiproxy)
+
+```bash
+toxiproxy-cli create database --listen 0.0.0.0:5000 --upstream database:5000;
+toxiproxy-cli -h toxiproxy:8474 toxic add -t latency -a latency=2000 database;
+toxiproxy-cli -h toxiproxy:8474 toxic add -t bandwidth -a rate=1 database;
+toxiproxy-cli -h toxiproxy:8474 toxic add -t slicer -a average_size=1000 -a size_variation=900 -a delay=10000 database;
+```
 
 ### Prometheus
 
