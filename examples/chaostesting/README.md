@@ -17,7 +17,7 @@ The ``client`` is a counter from the client point of view while ``sybase_test_ta
 ![Server rates without toxics](./1-server-no-toxics.png)
 
 ## Example with Toxics
-We can see that the that from the client point of view the rate is lower than before (1rps > 0.04rps).
+We can see that from the client point of view the rate is lower than before (1rps > 0.04rps).
 ![Client counter with toxics](./0-client-toxics.png)
 ![Server rates with toxics](./0-server-toxics.png)
 
